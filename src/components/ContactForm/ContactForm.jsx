@@ -1,40 +1,51 @@
-import { Component } from 'react';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+// import shortId from'shortid';
 import PropTypes from 'prop-types';
 
+import {formSubmitHandler} from '../../redux/contacts/contact-action'
 import Button from '../Button'
 
 import styles from './ContactForm.module.scss'
 
 
-class ContactForm extends Component {
+const ContactForm = () => {
 
    
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const contacts = useSelector(state => state.contacts.items);
+  const dispatch = useDispatch();
 
-  state = {
-    name: '',
-    number: '',
-  };
-
-  handleChange = ({ target }) => {
+  const handleChange = ({ target }) => {
     const { name, value } = target;
-    this.setState({ [name]: value });
+    name === 'name' ? setName(value) : setNumber(value);
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.onSubmit(this.state);
-    this.reset();
-  };
+  const handleSubmit = event => {
+    event.preventDefault();
+    if (!name || !number) 
+    return;
 
-  reset = () => {
-    this.setState({ name: '', number: '' });
-  };
 
-  render() {
-    const { name, number } = this.state;
+    const contactNames = contacts.map(contact => contact.name.toLowerCase());
+    if (contactNames.includes(name.toLowerCase())) {
+      alert(`${name} is already in contacts.`);
+      return;
+    }
+
+    // const contact = {
+    //       id: shortId.generate(),
+    //       name,
+    //       number,
+    //     };
+        dispatch(formSubmitHandler(name, number));
+        setName('');
+        setNumber('');
+  };
 
     return (
-      <form className={styles.form} onSubmit={this.handleSubmit} >
+      <form className={styles.form} onSubmit={handleSubmit} >
         <label className={styles.formLabel}>
           Name
           <input
@@ -43,7 +54,7 @@ class ContactForm extends Component {
             name="name"
             className={styles.formInput}
             placeholder="Enter name"
-            onChange={this.handleChange}
+            onChange={handleChange}
           />
         </label>
         <label className={styles.formLabel}>
@@ -54,18 +65,19 @@ class ContactForm extends Component {
             name="number"
             className={styles.formInput}
             placeholder="Enter contact"
-            onChange={this.handleChange}
+            onChange={handleChange}
           />
         </label>
         <Button />
       </form>
     );
   }
-}
+
 
 
 
 ContactForm.propTypes = {
+  contacts: PropTypes.array.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

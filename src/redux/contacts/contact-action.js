@@ -1,26 +1,38 @@
+import { createAction } from '@reduxjs/toolkit';
 import shortid from 'shortid';
-import types from './contact-types';
+// import types from './contact-types';
 
-const   formSubmitHandler = ({ name, number }) => ({
-  type: types.ADD,
-  payload: {
-    id: shortid.generate(),
-    name,
-    number,
-}
-});
+export const formSubmitHandler = createAction('contact/formSubmitHandler', ({ name, number }) => {
+  return {
+      payload: {
+          id: shortid.generate(),
+          name,
+          number
+      },
+  };
+})
 
-const deleteContact = (id) => ({
-  type: types.DELETE,
-  payload: id,
-});
+// const   formSubmitHandler = ({ name, number }) => ({
+//   type: types.ADD,
+//   payload: {
+//     id: shortid.generate(),
+//     name,
+//     number,
+// }
+// });
 
+export const deleteContact = createAction('contact/deleteContact');
 
-const changeFilter = value => ({
-  type: 'CHANGE_FILTER',
-  payload: value,
-});
+// const deleteContact = (id) => ({
+//   type: types.DELETE,
+//   payload: id,
+// });
 
+export const changeFilter = createAction('contact/changeFilter');
 
-export {formSubmitHandler, deleteContact, changeFilter};
+// const changeFilter = value => ({
+//   type: 'CHANGE_FILTER',
+//   payload: value,
+// });
+
 
