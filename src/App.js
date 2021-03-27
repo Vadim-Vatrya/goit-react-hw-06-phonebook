@@ -1,6 +1,6 @@
 
 // import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import Filter from './components/Filter';
@@ -10,7 +10,7 @@ import Container from './components/Container';
 
 const App =() => {
 
-  const contacts = useSelector(state => state.contacts.items);
+  // const contacts = useSelector(state => state.contacts.items);
 
   // const formSubmitHandler = contact => {
   //   setContacts(prevState => [contact, ...prevState]);

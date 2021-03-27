@@ -1,7 +1,6 @@
-// import {combineReducers } from "@reduxjs/toolkit";
-import { createReducer } from "@reduxjs/toolkit";
+import {combineReducers } from 'redux';
+import { createReducer} from "@reduxjs/toolkit";
 import {formSubmitHandler, deleteContact, changeFilter} from './contact-action';
-// import {DELETE, ADD, CHANGE_FILTER} from './contact-types';
 
 // import types from './counter-types';
 
@@ -44,8 +43,8 @@ export const itemsFilter = createReducer('', {
 //          }
 //         }
 
-// export default combineReducers({
-//   itemsReducer,
-//   itemsFilter,
-// });
+export default combineReducers({
+  itemsReducer,
+  itemsFilter,
+});
         

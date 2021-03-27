@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import shortId from'shortid';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import {formSubmitHandler} from '../../redux/contacts/contact-action'
 import Button from '../Button'
@@ -76,9 +76,9 @@ const ContactForm = () => {
 
 
 
-ContactForm.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
+// ContactForm.propTypes = {
+//   contacts: PropTypes.array.isRequired,
+//   onSubmit: PropTypes.func.isRequired,
+// };
 
 export default ContactForm;

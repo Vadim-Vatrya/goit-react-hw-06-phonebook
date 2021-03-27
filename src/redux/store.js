@@ -1,4 +1,6 @@
-import { combineReducers } from "redux";
+// import { combineReducers } from "redux";
+// import { composeWithDevTools } from 'redux-devtools-extension';
+// import contactsReducer from './contacts/contacts-reducer';
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { persistStore, persistReducer, FLUSH,
     REHYDRATE,
@@ -8,38 +10,32 @@ import { persistStore, persistReducer, FLUSH,
     REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import {itemsReducer, itemsFilter} from './contacts/contact-reducer';
+import contactsReducer from './contacts/contact-reducer';
 
+const contactsPersistConfig = {
+  key: 'contacts',
+  version: 1,
+  storage,
+  blacklist: ['filter'], 
+};
 
-const middleware = [
-    ...getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
-  ];
-
-  const contactsReducer = combineReducers({
-    items: itemsReducer,
-    filter: itemsFilter
+export const store = configureStore({
+  reducer: {
+    contacts: persistReducer(contactsPersistConfig, contactsReducer),
+  },
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER], 
+    },
+  }),
 });
 
-  const contactsPersistConfig = {
-    key: 'contacts',
-    storage,
-    blacklist: ['filter'],
-  };
+export const persistor = persistStore(store);
 
- export const store = configureStore({
-    reducer: {
-      contacts: persistReducer(contactsPersistConfig, contactsReducer),
-    },
-    middleware,
-  
-    devTools: process.env.NODE_ENV === 'development',
-  });
+// export default { store, persistor };
 
-  export const persistor = persistStore(store);
+
+
 
 // export default { store, persistor };
 
@@ -48,4 +44,7 @@ const middleware = [
 //     contacts: contactsReduser
 // });
 
-// const store = createStore(rootReduser, composeWithDevTools());
+
+// const store = createStore(rootReducer, composeWithDevTools()); // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+
+// export default store;
