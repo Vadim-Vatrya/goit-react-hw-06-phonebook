@@ -1,5 +1,6 @@
 import {combineReducers } from "@reduxjs/toolkit";
 // import {formSubmitHandler, deleteContact, changeFilter} from './contact-action';
+import {DELETE, ADD, CHANGE_FILTER} from './contact-types';
 
 import types from './counter-types';
 
@@ -28,7 +29,7 @@ const itemsReducer = (state=contacts, {type, payload}) => {
 const itemsFilter = (state ='', {type, payload}) => {
   switch (type) {
           case types.CHANGE_FILTER:
-          return payload;
+          return payload.trim();
       
           default:
           return state;
