@@ -1,4 +1,4 @@
-// import { createStore, combineReducers } from "redux";
+import { combineReducers } from "redux";
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { persistStore, persistReducer, FLUSH,
     REHYDRATE,
@@ -8,7 +8,7 @@ import { persistStore, persistReducer, FLUSH,
     REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import contactsReducer from './contacts/contact-reducer';
+import {itemsReducer, itemsFilter} from './contacts/contact-reducer';
 
 
 const middleware = [
@@ -18,6 +18,11 @@ const middleware = [
       },
     }),
   ];
+
+  const contactsReducer = combineReducers({
+    items: itemsReducer,
+    filter: itemsFilter
+});
 
   const contactsPersistConfig = {
     key: 'contacts',

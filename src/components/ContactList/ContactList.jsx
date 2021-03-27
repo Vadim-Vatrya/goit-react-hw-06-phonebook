@@ -1,25 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import ButtonDelete from '../ButtonDelete/ButtonDelete';
 
 import styles from './ContactList.module.scss';
 
-function ContactList({ contacts, onDeleteContact }) {
+const ContactList = () => {
+  const contacts = useSelector(state => state.contacts.items);
+  const filter = useSelector(state => state.contacts.filter);
+
+  const normalizedFilter = filter.toLowerCase();
+  const visibleContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(normalizedFilter),
+  );
+
   return (
     <ul>
-      {contacts.map(({ id, name, number }) => {
+      {visibleContacts.map(({ id, name, number }) => {
         return (
           <li key={id} className={styles.listItem}>
             <span className={styles.name}>{name}:</span>
             <span className={styles.number}>{number}</span>
-            <button className={styles.deleteButton} onClick={() => onDeleteContact(id)}>
-              Delete
-            </button>
+            <ButtonDelete id={id}/>
           </li>
         );
       })}
     </ul>
   );
 }
+
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(

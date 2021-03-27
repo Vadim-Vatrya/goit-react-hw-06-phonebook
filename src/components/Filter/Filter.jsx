@@ -21,7 +21,7 @@ const Filter = () => {
       <input
       type="text"
       value={value}
-      onChange={(event) => dispatch(inputChangeFilter)}
+      onChange={inputChangeFilter}
       placeholder="search"
       className={styles.input}>
     
