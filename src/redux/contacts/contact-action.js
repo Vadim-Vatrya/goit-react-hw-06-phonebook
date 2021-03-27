@@ -10,13 +10,13 @@ const   formSubmitHandler = ({ name, number }) => ({
 }
 });
 
-const deleteContact = (id) = ({
+const deleteContact = (id) => ({
   type: types.DELETE,
   payload: id,
 });
 
 
-const changeFilter = value = ({
+const changeFilter = value => ({
   type: 'CHANGE_FILTER',
   payload: value,
 });
