@@ -1,6 +1,6 @@
-export default {
-    ADD: 'contacts/formSubmitHandler',
-    DELETE: 'contacts/deleteContact',
-    CHANGE_FILTER: 'contacts/changeFilter',
-  };
+
+  export const ADD = 'contacts/formSubmitHandler';
+  export const DELETE ='contacts/deleteContact';
+  export const CHANGE_FILTER = 'contacts/changeFilter';
+
   
